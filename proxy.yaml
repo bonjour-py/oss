@@ -1,0 +1,16 @@
+{{- $service := list "" "cloud" -}}
+http:
+  services:
+    {{- range $i := $service }}
+    oss{{ if $i }}-{{end}}{{ $i }}:
+      loadBalancer:
+        servers:
+          - url: https://bonjour-zone{{ if $i }}-{{end}}{{ $i }}.oss-cn-beijing-internal.aliyuncs.com
+    {{- end }}
+  routers:
+    {{- range $i := $service }}
+    oss{{ if $i }}-{{end}}{{ $i }}: 
+      entryPoints: https
+      rule: Host(`{{ $i }}{{ if $i }}.{{end}}oss.bonjour.zone`)
+      service: oss{{ if $i }}-{{end}}{{ $i }}
+    {{- end }}
