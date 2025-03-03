@@ -1,4 +1,4 @@
-{{- $service := list "" "cloud" -}}
+{{- $service := list "" "cloud" "test" -}}
 http:
   services:
     {{- range $i := $service }}
