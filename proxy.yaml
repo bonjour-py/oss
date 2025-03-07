@@ -10,7 +10,8 @@ http:
   routers:
     {{- range $i := $service }}
     oss{{ if $i }}-{{end}}{{ $i }}: 
-      entryPoints: https
+      entryPoints: 
+        - https
       rule: Host(`{{ $i }}{{ if $i }}.{{end}}oss.bonjour.zone`)
       service: oss{{ if $i }}-{{end}}{{ $i }}
     {{- end }}
